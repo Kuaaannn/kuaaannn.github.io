@@ -1,0 +1,79 @@
+/* Keep al-folio's base theme, with compact single-page spacing. */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/assets/fonts/Roboto.ttf") format("truetype");
+}
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+/* al-folio owns the shared --global-theme-color: purple in light mode, blue in
+   dark mode. Let every link inherit its native theme rules. Feature classes
+   change typography only; matching accents should use that token, and SVGs
+   should use currentColor rather than a separate palette. */
+a { text-underline-offset: 3px; }
+a.academic-link { font-weight: 500; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--global-theme-color); outline-offset: 4px; }
+.skip-link { position: fixed; top: -80px; left: 15px; z-index: 2000; background: var(--global-bg-color); padding: 12px 18px; border: 1px solid var(--global-theme-color); }
+.skip-link:focus { top: 10px; }
+#navbar .navbar-menu-list { align-items: center; }
+#light-toggle { min-width: 44px; min-height: 44px; transform: none; }
+#light-toggle svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.academic-home p { margin-bottom: .65rem; line-height: 1.45; }
+.academic-home .post-header { margin-bottom: 1rem; }
+.academic-home .post-header .desc { margin-bottom: .5rem; }
+.academic-home .profile { width: 160px; margin: 0 0 .75rem 1.25rem; }
+.profile figure { margin: 0; }
+.profile-photo { display: block; width: 100%; height: auto; border-radius: 2px; }
+.profile-links { display: flex; justify-content: center; gap: 4px; margin-top: 4px; }
+.social-link { display: inline-flex; justify-content: center; align-items: center; width: 36px; height: 36px; border-radius: 4px; }
+.social-link svg { width: 21px; height: 21px; fill: currentColor; }
+.social-link:hover { background: var(--global-code-bg-color); text-decoration: none; }
+.research-focus { max-width: 70ch; }
+.academic-section { clear: both; margin-top: 1.25rem; }
+.academic-section h2, .about-section h2 { font-size: 1.625rem; margin-bottom: .625rem; }
+.academic-section h3 { font-size: 1.0625rem; font-weight: 500; margin-top: .75rem; margin-bottom: .375rem; }
+.academic-section h2 + h3 { margin-top: 0; }
+.academic-home .research-period { font-size: .875rem; margin-bottom: .375rem; }
+.publications { margin-top: 0; }
+.publication-entry .title { font-size: 1rem; margin-top: 0; }
+.publication-entry .author, .publication-entry .periodical { margin-bottom: .5rem; }
+.publication-entry .periodical { font-style: normal; }
+.publications ol.bibliography, .publications ol.bibliography li { margin-bottom: 0; }
+.education-school { margin-bottom: .5rem; }
+.contact-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.contact-links .social-link { width: 44px; height: 44px; }
+.contact-links .social-link svg { width: 25px; height: 25px; }
+footer.sticky-bottom { padding-top: 20px; padding-bottom: 20px; }
+@media (max-width: 850px) {
+  #navbar.navbar-expand-sm .navbar-toggler { display: block; }
+  #navbar.navbar-expand-sm .navbar-collapse { flex-basis: 100%; }
+  #navbar.navbar-expand-sm .navbar-nav { flex-direction: column; align-items: stretch; margin: 10px 0; width: 100%; }
+  #navbar .navbar-toggler-main { margin-left: auto; }
+  #navbar .navbar-collapse-main { text-align: left; }
+  #navbar .navbar-menu-list { margin-left: 0; }
+  #navbar .nav-link { padding: 9px 0; }
+  #navbar .toggle-container { align-self: flex-start; }
+  #navbar .container { flex-wrap: wrap; padding-left: 15px; padding-right: 15px; }
+}
+/* Match the template's layered spacing utilities and desktop menu rules. */
+@layer components {
+  .container[role="main"], footer.sticky-bottom { margin-top: 1.5rem !important; }
+  @media (max-width: 850px) {
+    #navbar.navbar-expand-sm .navbar-collapse { display: none !important; }
+    #navbar.navbar-expand-sm .navbar-collapse.show { display: block !important; }
+  }
+}
+@media (max-width: 640px) {
+  .academic-home .profile { float: right !important; width: 130px; margin: 0 0 .75rem 1rem; }
+  .academic-home .post-title { font-size: 2rem; }
+  .about-section { clear: both; }
+}
+@media (max-width: 360px) {
+  .academic-home .profile { width: 112px; margin-left: .75rem; }
+  .profile-links { gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html.transition, html.transition * { transition: none !important; }
+}
