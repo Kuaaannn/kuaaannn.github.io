@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A bilingual, interactive research essay on adaptation, forgetting, and geometry in six PEFT methods.">
+  <link rel="canonical" href="https://kuaaannn.github.io/peft-methods/">
+  <link rel="icon" href="/assets/img/favicon.svg">
+  <title>How different are PEFT methods, really? · PEFT research notes</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js" defer></script>
+  <script src="math.js" defer></script>
+  <script src="content.js" defer></script>
+  <script src="copy.js" defer></script>
+  <script src="pareto.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#article" data-i18n="skip">Skip to article</a>
+  <header class="topbar"><a class="wordmark" href="#top">PEFT <span data-i18n="notes">/ research notes</span></a><nav><a href="#geometry" data-i18n="nav1">Geometry</a><a href="#tradeoffs" data-i18n="nav2">Trade-offs</a><a href="#components" data-i18n="nav3">Components</a></nav><div class="language" aria-label="Language"><button id="en" lang="en" aria-pressed="true">EN</button><button id="zh" lang="zh-CN" aria-pressed="false">中文</button></div></header>
+  <main id="article">
+    <span id="overview" aria-hidden="true"></span><header class="hero prose" id="top">
+      <p class="eyebrow" data-i18n="eyebrow">RESEARCH NOTES / OCTOBER 2026</p>
+      <h1 data-i18n="title">How different are<br>PEFT methods, really?</h1>
+      <p class="dek" data-i18n="dek"></p>
+      <p class="authors"><a href="https://kuaaannn.github.io/" target="_blank" rel="noopener noreferrer" hreflang="en">Yikuan Li</a> · <a href="http://pinyanlu.com/" target="_blank" rel="noopener noreferrer" hreflang="en">Pinyan Lu</a> · <a href="https://www.lfhsgre.org/" target="_blank" rel="noopener noreferrer" hreflang="en">Fanghui Liu</a></p>
+      <div class="resources"><a href="https://arxiv.org/abs/2610.09122" data-i18n="paper">Paper ↗</a><a href="https://github.com/Kuaaannn/PEFT_methods" data-i18n="code">Code ↗</a><span data-i18n="reading">6 minute read · interactive figures</span></div>
+    </header>
+    <div class="prose opening" id="introduction" style="scroll-margin-top:85px">
+      <p data-i18n="intro"></p>
+      <div class="method-equations" id="method-formulas">
+        <div class="method-formula"><strong>LoRA</strong><div class="math-display" data-math="lora"></div></div>
+        <div class="method-formula"><strong>OFT</strong><div class="math-display" data-math="oft"></div></div>
+        <p class="notation-note" data-i18n="methodNotation"></p>
+        <p class="math-copy-hint" data-i18n="formulaCopyHint"></p>
+      </div>
+      <p data-i18n="oftBias"></p>
+      <details class="aside math-details"><summary data-i18n="preservationTitle"></summary><div class="math-display" data-math="gram"></div><p data-i18n="gramNote"></p><div class="math-display" data-math="he"></div><p data-i18n="heNote"></p></details>
+      <p id="tuning-motivation" data-i18n="tuningMotivation" style="scroll-margin-top:100px"></p>
+      <p id="seed-motivation" data-i18n="seedMotivation" style="scroll-margin-top:100px"></p>
+      <p id="arena-context" data-i18n="arenaContext" style="scroll-margin-top:100px"></p>
+      <p data-i18n="motivation"></p>
+      <p data-i18n="protocol"></p>
+      <details class="aside math-details" id="evaluation-details">
+        <summary data-i18n="evaluationTitle"></summary>
+        <p data-i18n="evaluationLanguage"></p><p data-i18n="evaluationSelection"></p>
+        <p data-i18n="evaluationNll"></p><div class="math-display" data-math="forgetting_nll"></div><p data-i18n="evaluationNllNote"></p>
+        <p data-i18n="evaluationImages"></p>
+      </details>
+      <details class="aside math-details" id="other-methods">
+        <summary data-i18n="otherMethodsTitle"></summary>
+        <p data-i18n="dimensionsNote"></p><div class="math-display" data-math="dimensions"></div>
+        <h3>DoRA</h3><div class="math-display" data-math="dora"></div><p data-i18n="doraFormulaNote"></p>
+        <h3>PiSSA / MiLoRA</h3><div class="math-display" data-math="spectral_init"></div><p data-i18n="spectralFormulaNote"></p>
+        <h3>HRA</h3><div class="math-display" data-math="hra"></div><p data-i18n="hraFormulaNote"></p>
+      </details>
+      <details class="aside"><summary data-i18n="reviewTitle"></summary><p data-i18n="review"></p></details>
+    </div>
+    <section id="geometry">
+      <div class="prose"><p class="section-number">01 / <span data-i18n="geometryTag"></span></p><h2 data-i18n="geometryTitle"></h2><p data-i18n="theoryLead"></p>
+        <div class="theory" id="theory">
+          <h3 data-i18n="exactTitle"></h3><p data-i18n="exactSetup"></p>
+          <div class="math-display" data-math="displacements"></div>
+          <p data-i18n="exactRestore"></p><div class="math-display" data-math="restoration"></div>
+          <p data-i18n="exactResult"></p><div class="equation math-display" data-math="orbit_distance"></div>
+          <p data-i18n="exactMeaning"></p><div class="math-display" data-math="orbit_ratio"></div><p data-i18n="exactTakeaway"></p>
+          <h3 data-i18n="localTitle"></h3><p data-i18n="localSetup"></p><div class="math-display" data-math="first_order"></div>
+          <p data-i18n="localAssumption"></p><div class="math-display" data-math="isotropy"></div>
+          <p data-i18n="localIntuition"></p><div class="equation math-display" data-math="spectral_scale"></div><p data-i18n="localTakeaway"></p>
+          <details class="aside"><summary data-i18n="proofTitle"></summary><p data-i18n="proofExact"></p><div class="math-display" data-math="normal_tangent"></div><p data-i18n="proofLocal"></p></details>
+        </div>
+        <h3 class="empirical-title" data-i18n="empiricalTitle"></h3><p data-i18n="geometryText"></p><p data-i18n="geometryFinding"></p></div>
+      <figure class="plot-block" id="spectral-figure" aria-labelledby="spectral-title" style="scroll-margin-top:85px">
+        <figcaption class="figure-head"><span class="figure-no">FIG. 1A</span><h3 id="spectral-title" data-i18n="spectralTitle"></h3><p data-i18n="spectralPrompt"></p></figcaption>
+        <div class="controls"><label><span data-i18n="model"></span><select id="spectral-model"><option value="all" data-i18n="spectralAll"></option><option value="qwen">Qwen2.5-7B</option><option value="llama">Llama-3.1-8B</option><option value="flux">FLUX.2-klein-base-4B</option></select></label><label><span data-i18n="display"></span><select id="spectral-view"><option value="dS" data-i18n="spectralDS"></option><option value="ratio" data-i18n="spectralRatio"></option><option value="dW" data-i18n="spectralDW"></option></select></label></div>
+        <div class="chart" id="spectral-chart"></div><div class="chart-legend" id="spectral-legend"></div><p class="chart-note" data-i18n="spectralNote"></p><details class="table-details"><summary data-i18n="dataTable"></summary><div class="table-scroll" id="spectral-table"></div></details>
+      </figure>
+      <figure class="plot-block" id="restore-figure" aria-labelledby="restore-title" style="scroll-margin-top:85px">
+        <figcaption class="figure-head"><span class="figure-no">FIG. 1B</span><h3 id="restore-title" data-i18n="restoreTitle"></h3><p data-i18n="restorePrompt"></p></figcaption>
+        <div class="controls"><label><span data-i18n="model"></span><select id="restore-model"><option value="qwen">Qwen2.5-7B</option><option value="llama">Llama-3.1-8B</option><option value="flux">FLUX.2-klein-base-4B</option></select></label><label><span data-i18n="display"></span><select id="restore-view"><option value="scores" data-i18n="scores"></option><option value="change" data-i18n="pairedChange"></option></select></label></div>
+        <div class="chart" id="restore-chart"></div><div class="chart-legend" id="restore-legend"></div><p class="chart-note" id="restore-note"></p><details class="table-details"><summary data-i18n="dataTable"></summary><div class="table-scroll" id="restore-table"></div></details>
+      </figure>
+      <div class="prose"><details class="aside"><summary data-i18n="oftTechnicalTitle"></summary><p data-i18n="cayleyIntro"></p><div class="math-display" data-math="cayley"></div><p data-i18n="oftImplementation"></p></details></div>
+    </section>
+    <span id="results" aria-hidden="true"></span><section id="tradeoffs">
+      <div class="prose"><p class="section-number">02 / <span data-i18n="tradeTag"></span></p><h2 data-i18n="tradeTitle"></h2><p data-i18n="tradeText"></p><p data-i18n="tradeCaveat"></p><p data-i18n="paretoFinding"></p></div>
+      <figure class="plot-block" aria-labelledby="trade-title">
+        <figcaption class="figure-head"><span class="figure-no">FIG. 2</span><h3 id="trade-title" data-i18n="tradePlotTitle"></h3><p data-i18n="tradePrompt"></p></figcaption>
+        <div class="controls"><label><span data-i18n="setting"></span><select id="trade-setting"><option value="math-qwen" data-i18n="mathQwen"></option><option value="math-llama" data-i18n="mathLlama"></option><option value="cat-flux" data-i18n="cat"></option><option value="coding-qwen" data-i18n="codeQwen"></option><option value="coding-llama" data-i18n="codeLlama"></option></select></label><label><span data-i18n="view"></span><select id="trade-view"><option value="grid" data-i18n="gridView"></option><option value="selected" data-i18n="testView"></option></select></label><label><span data-i18n="budget"></span><select id="trade-capacity"></select></label><label id="trade-range-control"><span data-i18n="plotRange"></span><select id="trade-range"><option value="" data-i18n="choosePreset" disabled hidden></option><option value="paper" data-i18n="paperRange"></option><option value="detail" data-i18n="detailRange"></option><option value="full" data-i18n="fullRange"></option></select></label></div>
+        <details class="axes-editor" id="axes-editor"><summary data-i18n="adjustAxes"></summary><div class="axes-fields"><label><span data-i18n="xMin"></span><input id="axis-xmin" type="number" step="any"></label><label><span data-i18n="xMax"></span><input id="axis-xmax" type="number" step="any"></label><label><span data-i18n="yMin"></span><input id="axis-ymin" type="number" step="any"></label><label><span data-i18n="yMax"></span><input id="axis-ymax" type="number" step="any"></label><button type="button" class="copy-source" id="axes-apply" data-i18n="applyAxes"></button><button type="button" class="copy-source" id="axes-reset" data-i18n="resetAxes"></button></div><p id="axes-error" class="axes-error" role="alert" hidden></p></details><div class="method-legend" id="trade-legend"></div>
+        <div id="pareto-controls" class="pareto-controls">
+          <div class="pareto-playback"><button type="button" class="play" id="pareto-play" aria-pressed="false" data-i18n="paretoPlay"></button><label for="pareto-progress" data-i18n="paretoProgress"></label><input id="pareto-progress" type="range" min="0" max="185" value="185" step="1"><button type="button" class="copy-source" id="pareto-all" data-i18n="paretoAll"></button></div>
+          <p class="pareto-motion" data-i18n="paretoMotion"></p><p class="pareto-key"><span data-i18n="paretoShapes"></span><span data-i18n="paretoBlack"></span></p>
+        </div>
+        <div class="chart" id="trade-chart"></div><div id="pareto-status" class="pareto-status" role="status" aria-live="off"></div><div id="pareto-counts" class="pareto-counts"></div><p class="chart-note" id="trade-note"></p><details class="table-details"><summary data-i18n="dataTable"></summary><div class="table-scroll" id="trade-table"></div></details>
+      </figure>
+      <div class="prose"><p data-i18n="metrics"></p></div>
+    </section>
+    <span id="experiments" aria-hidden="true"></span><section id="components">
+      <div class="prose"><p class="section-number">03 / <span data-i18n="componentTag"></span></p><h2 data-i18n="componentTitle"></h2><p data-i18n="componentText"></p><details class="aside math-details"><summary data-i18n="componentFormulaTitle"></summary><div class="math-display" data-math="component_restore"></div><p data-i18n="componentFormulaNote"></p></details><p id="performance-finding" data-i18n="performanceFinding"></p><p data-i18n="componentFinding"></p><p id="norm-effect" data-i18n="normFinding" style="scroll-margin-top:100px"></p><details class="aside"><summary data-i18n="normTitle"></summary><p data-i18n="normDetails"></p></details></div>
+      <figure class="plot-block" aria-labelledby="component-title">
+        <figcaption class="figure-head"><span class="figure-no">FIG. 3</span><h3 id="component-title" data-i18n="componentPlotTitle"></h3><p data-i18n="componentPrompt"></p></figcaption>
+        <div class="controls"><label><span data-i18n="model"></span><select id="component-model"><option value="qwen">Qwen2.5-7B</option><option value="llama">Llama-3.1-8B</option><option value="flux">FLUX.2-klein-base-4B</option></select></label><label><span data-i18n="method"></span><select id="component-method"><option value="lora">LoRA</option><option value="dora">DoRA</option><option value="pissa">PiSSA</option><option value="milora">MiLoRA</option><option value="oft">OFT</option><option value="hra">HRA</option></select></label><button class="play" id="play" aria-pressed="false" data-i18n="play"></button></div>
+        <div class="chart" id="component-chart"></div><p class="chart-note" id="component-note"></p><details class="table-details"><summary data-i18n="dataTable"></summary><div class="table-scroll" id="component-table"></div></details>
+      </figure>
+      <div class="prose"><p data-i18n="sufficiency"></p></div>
+    </section>
+    <section class="prose closing" id="thinking"><p class="section-number">04 / <span data-i18n="thinkingTag"></span></p><h2 data-i18n="thinkingTitle"></h2><p data-i18n="thinking"></p><p class="takeaway" data-i18n="takeaway"></p></section>
+    <section class="prose citation" id="citation" aria-labelledby="citation-title">
+      <div class="citation-head"><h2 id="citation-title" data-i18n="citationTitle"></h2><button type="button" class="copy-source" data-copy-bibtex data-copy-label="copyBibtex"><span class="copy-label" data-i18n="copyBibtex"></span></button></div>
+      <pre class="citation-code"><code id="bibtex">@misc{li2026parameterefficientfinetuningmethodsreally,
+      title={Are Parameter-Efficient Fine-tuning Methods Really Different?},
+      author={Yikuan Li and Pinyan Lu and Fanghui Liu},
+      year={2026},
+      eprint={2610.09122},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2610.09122},
+}</code></pre>
+      <a class="citation-download" href="citation.bib" download data-i18n="downloadBibtex"></a>
+    </section>
+    <footer class="prose"><p data-i18n="scope"></p><div class="footer-links"><a href="/blog/" data-i18n="homepage">Homepage</a><a href="#top" data-i18n="back"></a></div><p class="fine" data-i18n="credit"></p></footer>
+  </main>
+  <div id="tooltip" role="status" hidden></div>
+  <div id="copy-notice" role="status" aria-live="polite" hidden></div>
+  <dialog id="copy-dialog" aria-labelledby="copy-dialog-title" aria-describedby="copy-fallback-hint">
+    <form method="dialog"><div class="copy-dialog-head"><h2 id="copy-dialog-title" data-i18n="copyFallbackTitle"></h2><button type="submit" class="copy-source" data-i18n="copyClose"></button></div></form>
+    <p id="copy-fallback-hint" data-i18n="copyFallbackHint"></p>
+    <textarea id="copy-fallback" readonly spellcheck="false" aria-labelledby="copy-dialog-title"></textarea>
+  </dialog>
+  <noscript><p>Please enable JavaScript to read the bilingual essay and interact with the figures.</p></noscript>
+</body>
+</html>
